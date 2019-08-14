@@ -1,0 +1,54 @@
+<?php 
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Gallery list template
+ *
+ * @category    Joomi
+ * @package     Joomi_MasonryGallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_galleries = $this->getGalleries(); ?>
+<div class="page-title gallery-title">
+    <h1><?php echo Mage::helper('joomi_masonrygallery')->__('Galleries') ?></h1>
+</div>
+<?php if ($_galleries->getSize() > 0) :?>
+    <?php echo $this->getPagerHtml(); ?>
+    <ul class="gallery-list-container galleries_item">
+    <?php foreach ($_galleries as $_gallery) :
+        $thumb=$_gallery->getThumbnail();
+        $first_prod_id=$_gallery->getSelectedProductsCollection()->getFirstItem()->getId();
+        $detailsProd=Mage::getModel('catalog/product')->load($first_prod_id);
+        if($detailsProd[$big]=='no_selection'||$detailsProd[$thumb]=='no_selection')continue;
+        $thumb_img = Mage::helper('catalog/image')->init($detailsProd, $thumb);
+        ?>
+
+            <li>
+                <a style="display: block" href="<?php echo $_gallery->getGalleryUrl()?>">
+                    <img style="display: inline" src="<?php echo $thumb_img ?>" alt="<?php echo $_gallery->getTitle() ?>" width="30">
+                 <span style="vertical-align: top;"><?php echo $_gallery->getTitle();?></span>
+                </a>
+            </li>
+
+
+    <?php endforeach;?>
+    </ul>
+    <?php echo $this->getPagerHtml(); ?>
+<?php else : ?>
+    <?php echo Mage::helper('joomi_masonrygallery')->__('There are no galleries at this moment');?>
+<?php endif;?>

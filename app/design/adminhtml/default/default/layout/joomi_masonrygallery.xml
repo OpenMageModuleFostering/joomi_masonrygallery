@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_masonrygallery_gallery_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>joomi_masonrygallery/gallery</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="joomi_masonrygallery/adminhtml_gallery" name="gallery" />
+
+        </reference>
+    </adminhtml_masonrygallery_gallery_index>
+    <adminhtml_masonrygallery_gallery_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="joomi_masonrygallery/adminhtml_gallery_grid" name="gallery_grid"/>
+        </block>
+    </adminhtml_masonrygallery_gallery_grid>
+    <!-- Gallery add/edit action -->
+    <adminhtml_masonrygallery_gallery_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>joomi_masonrygallery/gallery</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="joomi_masonrygallery/adminhtml_gallery_edit" name="gallery_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="joomi_masonrygallery/adminhtml_gallery_edit_tabs" name="gallery_tabs"></block>
+        </reference>
+    </adminhtml_masonrygallery_gallery_edit>
+
+    <adminhtml_masonrygallery_gallery_catalog_product_galleries>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="joomi_masonrygallery/adminhtml_catalog_product_edit_tab_gallery" name="product.edit.tab.gallery"/>
+            <block type="adminhtml/widget_grid_serializer" name="gallery_grid_serializer">
+                <reference name="gallery_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>product.edit.tab.gallery</grid_block_name>
+                        <data_callback>getSelectedGalleries</data_callback>
+                        <hidden_input_name>galleries</hidden_input_name>
+                        <reload_param_name>product_galleries</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_masonrygallery_gallery_catalog_product_galleries>
+    <adminhtml_masonrygallery_gallery_catalog_product_galleriesgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="joomi_masonrygallery/adminhtml_catalog_product_edit_tab_gallery" name="product.edit.tab.gallery"/>
+        </block>
+    </adminhtml_masonrygallery_gallery_catalog_product_galleriesgrid>
+    <adminhtml_masonrygallery_gallery_products>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="joomi_masonrygallery/adminhtml_gallery_edit_tab_product" name="gallery.edit.tab.product"/>
+            <block type="adminhtml/widget_grid_serializer" name="product_grid_serializer">
+                <reference name="product_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>gallery.edit.tab.product</grid_block_name>
+                            <data_callback>getSelectedProducts</data_callback>
+                            <hidden_input_name>products</hidden_input_name>
+                            <reload_param_name>gallery_products</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_masonrygallery_gallery_products>
+    <adminhtml_masonrygallery_gallery_productsgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="joomi_masonrygallery/adminhtml_gallery_edit_tab_product" name="gallery.edit.tab.product"/>
+        </block>
+    </adminhtml_masonrygallery_gallery_productsgrid>
+    <adminhtml_masonrygallery_category_edit>
+        <update handle="editor"/>
+        <reference name="left">
+            <block name="category.tree" type="joomi_masonrygallery/adminhtml_category_tree" />
+        </reference>
+        <reference name="content">
+            <block name="category.edit" type="joomi_masonrygallery/adminhtml_category_edit" template="joomi_masonrygallery/category/edit.phtml" />
+        </reference>
+        <reference name="js">
+            <block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
+        </reference>
+    </adminhtml_masonrygallery_category_edit>
+</layout>

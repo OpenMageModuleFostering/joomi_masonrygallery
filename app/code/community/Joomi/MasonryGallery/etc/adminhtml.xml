@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <joomi_masonrygallery translate="title" module="joomi_masonrygallery">
+                                        <title>MasonryGallery</title>
+                                    </joomi_masonrygallery>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <joomi_masonrygallery translate="title" module="joomi_masonrygallery">
+                        <title>Masonry Gallery</title>
+                        <children>
+                            <category translate="title" module="joomi_masonrygallery">
+                                <title>Category</title>
+                                <sort_order>0</sort_order>
+                            </category>
+                            <gallery translate="title" module="joomi_masonrygallery">
+                                <title>Gallery</title>
+                                <sort_order>10</sort_order>
+                            </gallery>
+                        </children>
+                    </joomi_masonrygallery>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <joomi_masonrygallery translate="title" module="joomi_masonrygallery">
+            <title>Masonry Gallery</title>
+            <sort_order>85</sort_order>
+            <children>
+                <category translate="title" module="joomi_masonrygallery">
+                    <title>Category</title>
+                    <action>adminhtml/masonrygallery_category</action>
+                    <sort_order>0</sort_order>
+                </category>
+                <gallery translate="title" module="joomi_masonrygallery">
+                    <title>Gallery</title>
+                    <action>adminhtml/masonrygallery_gallery</action>
+                    <sort_order>10</sort_order>
+                </gallery>
+            </children>
+        </joomi_masonrygallery>
+    </menu>
+</config>

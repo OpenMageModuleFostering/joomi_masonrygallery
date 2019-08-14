@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<layout>
+    <default>
+    <reference name="head">
+        <action method="addCss"><js>css/joomi_masonrygallery/tree.css</js></action>
+    </reference>
+    </default>
+    <joomi_masonrygallery_category_index translate="label" module="joomi_masonrygallery">
+        <label>Categories list</label>
+        <update handle="page_one_column" />
+        <reference name="head">
+            <action method="addItem" ifconfig="joomi_masonrygallery/category/tree"><type>skin_js</type><js>js/joomi_masonrygallery/tree.js</js></action>
+        </reference>
+        <reference name="content">
+            <block type="joomi_masonrygallery/category_list" name="category_list" template="joomi_masonrygallery/category/list.phtml" />
+        </reference>
+    </joomi_masonrygallery_category_index>
+    <joomi_masonrygallery_gallery_index translate="label" module="joomi_masonrygallery">
+        <label>Galleries list</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="joomi_masonrygallery/gallery_list" name="gallery_list" template="joomi_masonrygallery/gallery/list.phtml" />
+        </reference>
+    </joomi_masonrygallery_gallery_index>
+    <joomi_masonrygallery_category_view translate="label" module="joomi_masonrygallery">
+        <label>Category view page</label>
+        <update handle="page_one_column" />
+        <reference name="head">
+            <action method="addItem" ifconfig="joomi_masonrygallery/category/tree"><type>skin_js</type><js>js/joomi_masonrygallery/tree.js</js></action>
+        </reference>
+        <reference name="content">
+            <block type="joomi_masonrygallery/category_view" name="category_view" template="joomi_masonrygallery/category/view.phtml" />
+            <block type="joomi_masonrygallery/category_children" name="category_children" template="joomi_masonrygallery/category/children.phtml" />
+            <block type="joomi_masonrygallery/category_gallery_list" name="category.gallery_list" as="category_categories" template="joomi_masonrygallery/category/gallery/list.phtml" />
+        </reference>
+    </joomi_masonrygallery_category_view>
+    <joomi_masonrygallery_gallery_view translate="label" module="joomi_masonrygallery">
+        <label>Gallery view page</label>
+        <update handle="page_one_column" />
+        <reference name="head">
+            <block type="core/template" name="headerInsert" template="joomi_masonrygallery/gallery/headerInsert.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="joomi_masonrygallery/gallery_view" name="gallery_view" template="joomi_masonrygallery/gallery/view.phtml" />
+            <block type="joomi_masonrygallery/gallery_catalog_product_list" name="gallery.info.products" as="gallery_products" template="joomi_masonrygallery/gallery/catalog/product/list.phtml" />
+        </reference>
+    </joomi_masonrygallery_gallery_view>
+</layout>

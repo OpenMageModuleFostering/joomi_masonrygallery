@@ -1,0 +1,156 @@
+<?php
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Gallery view widget template
+ *
+ * @category    Joomi
+ * @package     Joomi_MasonryGallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/joomi_masonrygallery/masonry.css') ?>" media="all">
+<?php
+
+$load_masonry = Mage::getStoreConfig('joomi_masonrygallery/global/load_masonry_jquery');
+$load_jquery = Mage::getStoreConfig('joomi_masonrygallery/global/load_jquery');
+$load_fancy_box = Mage::getStoreConfig('joomi_masonrygallery/global/load_fancy_box');
+
+if($load_jquery) {?>
+    <script src="<?php echo $this->getSkinUrl('js/joomi_masonrygallery/jquery.js')?>"></script>
+<?php }
+if($load_masonry) {?>
+    <script src="<?php echo $this->getSkinUrl('js/joomi_masonrygallery/jquery_masonry.js')?>"></script>
+<?php }
+if($load_fancy_box) { ?>
+    <script src="<?php echo $this->getSkinUrl('js/joomi_masonrygallery/jquery.fancybox.pack.js')?>"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/joomi_masonrygallery/jquery.fancybox.css') ?>" media="all">
+<?php }
+
+$_gallery = $this->getCurrentGallery();
+$limit = $_gallery->getLimitFirstLoad() ? $_gallery->getLimitFirstLoad() : 9999;
+$columnWidth = $_gallery->getColumnWidth();
+?>
+<script>
+    jQuery(document).ready(function($){
+        var $grid=jQuery('.grid').masonry({
+            itemSelector: '.masonry_item',
+            columnWidth: <?php echo $columnWidth+10 ?>
+        });
+        setTimeout(function(){
+            $grid.masonry('layout');
+        }, 500);
+
+
+        $('.masonry_item.masonry_popup').fancybox({
+            autoDimensions:   false,
+            fitToView:false,
+            autoSize : false,
+            maxWidth:'100%',
+            maxHeight:'100%',
+            helpers: {
+                title : {
+                    type : 'outside'
+                }},
+            beforeLoad: function() {
+                var url = $(this.element).attr('data-href');
+                var caption = $(this.element).attr('data-caption');
+                this.title = '<a class="masonry_prod_link" href="'+url+'">'+caption+'</a>';
+            },
+            beforeShow : function() {
+                $('.fancybox-wrap').addClass('mediaFancy');
+            }
+        });
+
+        var limit=<?php echo $limit ?>;
+
+        $(window).scroll(function() {
+
+            if (  document.documentElement.clientHeight + $(document).scrollTop() >= document.body.offsetHeight )
+            {
+                if(limit) {
+                    $('.masonry_item.hide').each(function (ind) {
+                        if(ind<limit){
+                            var src=$('img',this).attr('data-src');
+                            $('img',this).attr('src',src);
+                            $(this).addClass('show');
+                        }
+                    });
+                    $('.masonry_item.hide.show').removeClass('hide');
+                    $grid.masonry('layout');
+                }
+
+            }
+        });
+
+
+
+
+
+    });
+
+
+
+</script>
+<?php
+$load_masonry = Mage::getStoreConfig('joomi_masonrygallery/global/load_masonry_jquery');
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title gallery-title">
+    <h1><?php echo $_gallery->getTitle(); ?></h1>
+</div>
+<div class="gallery-view">
+
+    <h3 class="gallery-description">
+        <?php echo  $_gallery->getDescription();?>
+    </h3>
+</div>
+<?php
+$cur_gallery=Mage::getModel('joomi_masonrygallery/gallery')->load($_gallery->getId());
+$products= $cur_gallery->getSelectedProductsCollection();
+$grow_image_effect = Mage::getStoreConfig('joomi_masonrygallery/global/grow_image_effect');
+$open_popup_prod = Mage::getStoreConfig('joomi_masonrygallery/global/open_popup_prod');
+$class=' ';
+if($grow_image_effect) $class.='grow';
+if($open_popup_prod) $class.=' masonry_popup';
+?>
+<?php if ($products->count() > 0) :?>
+
+    <div class="item_fields gallery-view clearfix grid">
+        <?php
+        $ind=0;
+        $thumb=$_gallery->getThumbnail();
+        $big=$_gallery->getBigImage();
+        foreach($products as $product){
+            $detailsProd=Mage::getModel('catalog/product')->load($product->getId());
+            if(!$detailsProd[$big]||!$detailsProd[$thumb]||$detailsProd[$big]=='no_selection'||$detailsProd[$thumb]=='no_selection')continue;
+            $big_img= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product' .$detailsProd[$big];
+            $thumb_img= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product' .$detailsProd[$thumb];
+            $height = $this->helper('catalog/image')->init($detailsProd, $thumb)->getOriginalHeight();
+            $ind++;
+            $url = $ind<=$limit? $thumb_img :'';
+            $class2=$ind<=$limit?'': ' hide';
+            ?>
+            <a data-href="<?php echo $product->getProductUrl() ?>" style="height:<?php echo $height ?>px; width: <?php echo $columnWidth ?>px " title="<?php echo  strip_tags($detailsProd->getName()); ?>" class="masonry_item  <?php echo $class .$class2 ?>"  data-fancybox-group="gallery" target="<?php echo $open_popup_prod? '_blank' : '_self' ?>"  href="<?php echo $open_popup_prod ? $big_img:$product->getProductUrl() ?>" data-caption="<?php echo $detailsProd->getName() ?>">
+                <img data-src="<?php echo $thumb_img ?>" style="height:<?php echo $height ?>px" src="<?php echo $thumb_img ?>" alt="<?php echo strip_tags($detailsProd->getName())  ?>" >
+                <div class="item_media_text"><?php echo $detailsProd->getName(); ?></div>
+            </a>
+        <?php } ?>
+
+    </div>
+
+<?php endif;?>
+

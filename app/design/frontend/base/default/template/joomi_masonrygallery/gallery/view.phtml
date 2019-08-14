@@ -1,0 +1,105 @@
+<?php
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Gallery view template
+ *
+ * @category    Joomi
+ * @package     Joomi_MasonryGallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_gallery = $this->getCurrentGallery();
+$limit = $_gallery->getLimitFirstLoad() ? $_gallery->getLimitFirstLoad() : 9999;
+$columnWidth = $_gallery->getColumnWidth();
+?>
+<script>
+    jQuery(document).ready(function($){
+        var $grid=jQuery('.grid').masonry({
+            itemSelector: '.masonry_item',
+            columnWidth: <?php echo $columnWidth+10 ?>
+        });
+        setTimeout(function(){
+            $grid.masonry('layout');
+        }, 500);
+
+
+        $('.masonry_item.masonry_popup').fancybox({
+            autoDimensions:   false,
+            fitToView:false,
+            autoSize : false,
+            maxWidth:'100%',
+            maxHeight:'100%',
+            helpers: {
+                title : {
+                    type : 'outside'
+                }},
+            beforeLoad: function() {
+                var url = $(this.element).attr('data-href');
+                var caption = $(this.element).attr('data-caption');
+                this.title = '<a class="masonry_prod_link" href="'+url+'">'+caption+'</a>';
+            },
+            beforeShow : function() {
+                $('.fancybox-wrap').addClass('mediaFancy');
+            }
+        });
+
+        var limit=<?php echo $limit ?>;
+
+        $(window).scroll(function() {
+
+            if (  document.documentElement.clientHeight + $(document).scrollTop() >= document.body.offsetHeight )
+            {
+                if(limit) {
+                    $('.masonry_item.hide').each(function (ind) {
+                        if(ind<limit){
+                            var src=$('img',this).attr('data-src');
+                            $('img',this).attr('src',src);
+                            $(this).addClass('show');
+                        }
+                    });
+                    $('.masonry_item.hide.show').removeClass('hide');
+                    $grid.masonry('layout');
+                }
+
+            }
+        });
+
+
+
+
+
+    });
+
+
+
+</script>
+<?php
+$load_masonry = Mage::getStoreConfig('joomi_masonrygallery/global/load_masonry_jquery');
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title gallery-title">
+    <h1><?php echo $_gallery->getTitle(); ?></h1>
+</div>
+<div class="gallery-view">
+
+    <h3 class="gallery-description">
+        <?php echo  $_gallery->getDescription();?>
+    </h3>
+</div>
+
+
+

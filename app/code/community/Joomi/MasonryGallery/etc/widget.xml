@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<widgets>
+    <!--<masonrygallery_category_view type="joomi_masonrygallery/category_widget_view" translate="name description" module="joomi_masonrygallery">-->
+        <!--<name>Category view</name>-->
+        <!--<description>Category view widget</description>-->
+        <!--<is_email_compatible>0</is_email_compatible>-->
+        <!--<parameters>-->
+            <!--<category_id type="complex" translate="label">-->
+                <!--<visible>1</visible>-->
+                <!--<required>1</required>-->
+                <!--<label>Category</label>-->
+                <!--<type>label</type>-->
+                <!--<helper_block>-->
+                    <!--<type>joomi_masonrygallery/adminhtml_category_widget_chooser</type>-->
+                    <!--<data>-->
+                        <!--<button translate="open">-->
+                            <!--<open>Select Category</open>-->
+                        <!--</button>-->
+                    <!--</data>-->
+                <!--</helper_block>-->
+                <!--<sort_order>120</sort_order>-->
+            <!--</category_id>-->
+        <!--</parameters>-->
+    <!--</masonrygallery_category_view>-->
+    <masonrygallery_category_link type="joomi_masonrygallery/category_widget_link" translate="name description" module="joomi_masonrygallery">
+        <name>Category link</name>
+        <description>Category link widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <category_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Category</label>
+                <type>label</type>
+                <helper_block>
+                    <type>joomi_masonrygallery/adminhtml_category_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Category</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>130</sort_order>
+            </category_id>
+        </parameters>
+    </masonrygallery_category_link>
+    <masonrygallery_gallery_view type="joomi_masonrygallery/gallery_widget_view" translate="name description" module="joomi_masonrygallery">
+        <name>Gallery view</name>
+        <description>Gallery view widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <gallery_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Gallery</label>
+                <type>label</type>
+                <helper_block>
+                    <type>joomi_masonrygallery/adminhtml_gallery_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Gallery</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>120</sort_order>
+            </gallery_id>
+        </parameters>
+    </masonrygallery_gallery_view>
+    <masonrygallery_gallery_link type="joomi_masonrygallery/gallery_widget_link" translate="name description" module="joomi_masonrygallery">
+        <name>Gallery link</name>
+        <description>Gallery link widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <gallery_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Gallery</label>
+                <type>label</type>
+                <helper_block>
+                    <type>joomi_masonrygallery/adminhtml_gallery_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Gallery</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>130</sort_order>
+            </gallery_id>
+        </parameters>
+    </masonrygallery_gallery_link>
+    <!--<masonrygallery_category_subtree type="joomi_masonrygallery/category_widget_subtree" translate="name description" module="joomi_masonrygallery">-->
+        <!--<name>Category subtree</name>-->
+        <!--<description>Category subtree widget</description>-->
+        <!--<is_email_compatible>0</is_email_compatible>-->
+        <!--<parameters>-->
+            <!--<category_id type="complex" translate="label">-->
+                <!--<visible>1</visible>-->
+                <!--<required>1</required>-->
+                <!--<label>Category</label>-->
+                <!--<type>label</type>-->
+                <!--<helper_block>-->
+                    <!--<type>joomi_masonrygallery/adminhtml_category_widget_chooser</type>-->
+                    <!--<data>-->
+                        <!--<button translate="open">-->
+                            <!--<open>Select Category</open>-->
+                        <!--</button>-->
+                    <!--</data>-->
+                <!--</helper_block>-->
+                <!--<sort_order>10</sort_order>-->
+            <!--</category_id>-->
+            <!--<recursion type="complex" translate="label">-->
+                <!--<visible>1</visible>-->
+                <!--<required>1</required>-->
+                <!--<value>0</value>-->
+                <!--<label>Levels to show (0 for all)</label>-->
+                <!--<type>text</type>-->
+                <!--<sort_order>20</sort_order>-->
+            <!--</recursion>-->
+        <!--</parameters>-->
+    <!--</masonrygallery_category_subtree>-->
+</widgets>

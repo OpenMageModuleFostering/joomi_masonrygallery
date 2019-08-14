@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <modules>
+        <Joomi_MasonryGallery>
+            <version>1.0.0</version>
+        </Joomi_MasonryGallery>
+    </modules>
+    <global>
+        <resources>
+            <joomi_masonrygallery_setup>
+                <setup>
+                    <module>Joomi_MasonryGallery</module>
+                    <class>Joomi_MasonryGallery_Model_Resource_Setup</class>
+                </setup>
+            </joomi_masonrygallery_setup>
+        </resources>
+        <blocks>
+            <joomi_masonrygallery>
+                <class>Joomi_MasonryGallery_Block</class>
+            </joomi_masonrygallery>
+        </blocks>
+        <helpers>
+            <joomi_masonrygallery>
+                <class>Joomi_MasonryGallery_Helper</class>
+            </joomi_masonrygallery>
+        </helpers>
+        <models>
+            <joomi_masonrygallery>
+                <class>Joomi_MasonryGallery_Model</class>
+                <resourceModel>joomi_masonrygallery_resource</resourceModel>
+            </joomi_masonrygallery>
+            <joomi_masonrygallery_resource>
+                <class>Joomi_MasonryGallery_Model_Resource</class>
+                <entities>
+                    <category>
+                        <table>joomi_masonrygallery_category</table>
+                    </category>
+                    <gallery>
+                        <table>joomi_masonrygallery_gallery</table>
+                    </gallery>
+                    <category_store>
+                        <table>joomi_masonrygallery_category_store</table>
+                    </category_store>
+                    <gallery_store>
+                        <table>joomi_masonrygallery_gallery_store</table>
+                    </gallery_store>
+                    <gallery_product>
+                        <table>joomi_masonrygallery_gallery_product</table>
+                    </gallery_product>
+                </entities>
+            </joomi_masonrygallery_resource>
+        </models>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <joomi_masonrygallery>
+                        <class>Joomi_MasonryGallery_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </joomi_masonrygallery>
+                </observers>
+            </controller_front_init_routers>
+        </events>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <joomi_masonrygallery>
+                    <file>joomi_masonrygallery.xml</file>
+                </joomi_masonrygallery>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Joomi_MasonryGallery>
+                    <files>
+                        <default>Joomi_MasonryGallery.csv</default>
+                    </files>
+                </Joomi_MasonryGallery>
+            </modules>
+        </translate>
+        <events>
+            <core_block_abstract_prepare_layout_after>
+                <observers>
+                    <joomi_masonrygallery_gallery_product>
+                        <type>singleton</type>
+                        <class>joomi_masonrygallery/adminhtml_observer</class>
+                        <method>addProductGalleryBlock</method>
+                    </joomi_masonrygallery_gallery_product>
+                </observers>
+            </core_block_abstract_prepare_layout_after>
+            <catalog_product_save_after>
+                <observers>
+                    <joomi_masonrygallery_gallery_product>
+                        <type>singleton</type>
+                        <class>joomi_masonrygallery/adminhtml_observer</class>
+                        <method>saveProductGalleryData</method>
+                    </joomi_masonrygallery_gallery_product>
+                </observers>
+            </catalog_product_save_after>
+        </events>
+        <global_search>
+            <gallery>
+                <class>joomi_masonrygallery/adminhtml_search_gallery</class>
+                <acl>joomi_masonrygallery</acl>
+            </gallery>
+        </global_search>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Joomi_MasonryGallery before="Mage_Adminhtml">Joomi_MasonryGallery_Adminhtml</Joomi_MasonryGallery>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <frontend>
+        <routers>
+            <joomi_masonrygallery>
+                <use>standard</use>
+                <args>
+                    <module>Joomi_MasonryGallery</module>
+                    <frontName>masonry</frontName>
+                </args>
+            </joomi_masonrygallery>
+        </routers>
+        <layout>
+            <updates>
+                <joomi_masonrygallery>
+                    <file>joomi_masonrygallery.xml</file>
+                </joomi_masonrygallery>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Joomi_MasonryGallery>
+                    <files>
+                        <default>Joomi_MasonryGallery.csv</default>
+                    </files>
+                </Joomi_MasonryGallery>
+            </modules>
+        </translate>
+    </frontend>
+    <default>
+        <joomi_masonrygallery>
+            <category>
+                <breadcrumbs>1</breadcrumbs>
+                <meta_title>Categories</meta_title>
+                <tree>1</tree>
+                <recursion>0</recursion>
+            </category>
+            <gallery>
+                <breadcrumbs>1</breadcrumbs>
+                <meta_title>Galleries</meta_title>
+            </gallery>
+        </joomi_masonrygallery>
+    </default>
+</config>

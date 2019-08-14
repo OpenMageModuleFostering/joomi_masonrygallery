@@ -1,0 +1,68 @@
+<?php
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Gallery product list template
+ *
+ * @category    Joomi
+ * @package     Joomi_MasonryGallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php
+$_gallery=Mage::registry('current_gallery');
+$products = $this->getProductCollection();
+$limit = $_gallery->getLimitFirstLoad() ? $_gallery->getLimitFirstLoad() : 9999;
+$columnWidth = $_gallery->getColumnWidth();
+$grow_image_effect = Mage::getStoreConfig('joomi_masonrygallery/global/grow_image_effect');
+$open_popup_prod = Mage::getStoreConfig('joomi_masonrygallery/global/open_popup_prod');
+$class=' ';
+if($grow_image_effect) $class.='grow';
+if($open_popup_prod) $class.=' masonry_popup';
+?>
+<?php if ($products->count() > 0) :?>
+
+<div class="item_fields gallery-view clearfix grid">
+    <?php
+    $ind=0;
+    $thumb=$_gallery->getThumbnail();
+    $big=$_gallery->getBigImage();
+    foreach($products as $product){
+        $detailsProd=Mage::getModel('catalog/product')->load($product->getId());
+        if(!$detailsProd[$big]||!$detailsProd[$thumb]||$detailsProd[$big]=='no_selection'||$detailsProd[$thumb]=='no_selection')continue;
+        $big_img= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product' .$detailsProd[$big];
+        $thumb_img= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product' .$detailsProd[$thumb];
+
+        $height = $this->helper('catalog/image')->init($detailsProd, $thumb)->getOriginalHeight();
+
+
+        $ind++;
+
+        $url = $ind<=$limit? $thumb_img :'';
+        $class2=$ind<=$limit?'': ' hide';
+        ?>
+        <a data-href="<?php echo $product->getProductUrl() ?>" style="height:<?php echo $height ?>px; width: <?php echo $columnWidth ?>px " title="<?php echo  strip_tags($product->getName()); ?>" class="masonry_item  <?php echo $class .$class2 ?>"  data-fancybox-group="gallery" target="<?php echo $open_popup_prod? '_blank' : '_self' ?>"  href="<?php echo $open_popup_prod ? $big_img:$product->getProductUrl() ?>" data-caption="<?php echo $product->getName() ?>">
+
+            <img data-src="<?php echo $thumb_img ?>" style="height:<?php echo $height ?>px" src="<?php echo $thumb_img ?>" alt="<?php echo $image->description  ?>" >
+            <div class="item_media_text"><?php echo $product->getName(); ?></div>
+
+
+        </a>
+    <?php } ?>
+
+</div>
+
+<?php endif;?>

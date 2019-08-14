@@ -1,0 +1,44 @@
+<?php
+/**
+ * Joomi_MasonryGallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Joomi
+ * @package        Joomi_MasonryGallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Category view template
+ *
+ * @category    Joomi
+ * @package     Joomi_MasonryGallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_category = $this->getCurrentCategory();?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title category-title">
+    <h1><?php echo $_category->getTitle(); ?></h1>
+</div>
+<div class="category-view">
+<!--    <div class="category-title">-->
+<!--        --><?php //echo Mage::helper('joomi_masonrygallery')->__('Title');?><!--:--><?php //echo $_category->getTitle();?>
+<!---->
+<!--    </div>-->
+<!--    <div class="category-description">-->
+<!--        --><?php //echo Mage::helper('joomi_masonrygallery')->__('Description');?><!--:--><?php //echo $_category->getDescription();?>
+<!---->
+<!--    </div>-->
+<!--    <div class="category-ordering">-->
+<!--        --><?php //echo Mage::helper('joomi_masonrygallery')->__('Ordering');?><!--:--><?php //echo $_category->getOrdering();?>
+<!---->
+<!--    </div>-->
+
+</div>

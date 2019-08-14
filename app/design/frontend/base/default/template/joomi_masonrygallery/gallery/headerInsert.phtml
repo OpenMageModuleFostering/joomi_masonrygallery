@@ -1,0 +1,34 @@
+<?php
+/**
+* Joomi_MasonryGallery extension
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the MIT License
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/mit-license.php
+*
+* @category       Joomi
+* @package        Joomi_MasonryGallery
+* @copyright      Copyright (c) 2016
+* @license        http://opensource.org/licenses/mit-license.php MIT License
+*/
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/joomi_masonrygallery/masonry.css') ?>" media="all">
+<?php
+
+$load_masonry = Mage::getStoreConfig('joomi_masonrygallery/global/load_masonry_jquery');
+$load_jquery = Mage::getStoreConfig('joomi_masonrygallery/global/load_jquery');
+$load_fancy_box = Mage::getStoreConfig('joomi_masonrygallery/global/load_fancy_box');
+
+if($load_jquery) {?>
+    <script src="<?php echo $this->getSkinUrl('js/joomi_masonrygallery/jquery.js')?>"></script>
+<?php }
+if($load_masonry) {?>
+    <script src="<?php echo $this->getSkinUrl('js/joomi_masonrygallery/jquery_masonry.js')?>"></script>
+<?php }
+if($load_fancy_box) { ?>
+    <script src="<?php echo $this->getSkinUrl('js/joomi_masonrygallery/jquery.fancybox.pack.js')?>"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/joomi_masonrygallery/jquery.fancybox.css') ?>" media="all">
+<?php }
