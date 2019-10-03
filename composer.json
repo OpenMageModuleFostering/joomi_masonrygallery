@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Joomi_MasonryGallery",
+    "name": "OpenMageModuleFostering\/Joomi_MasonryGallery",
     "type": "magento-module",
     "license": "GNU-General-Public-License-(GPL)",
     "homepage": "",
     "description": "Masonry gallery for product images.",
     "authors": [
-    {
-        "name": "joomi",
-        "email": "info@joomi.co.il"
-    }
-],
+        {
+            "name": "joomi",
+            "email": "info@joomi.co.il"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
